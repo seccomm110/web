@@ -3,208 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Organizer</title>
+    <title>Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>File Organizer</h1>
-    </header>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="errorMessage" class="error-message" style="display:none;">Invalid username or password.</p>
+    </div>
 
-    <nav>
-        <ul>
-            <li><a href="#attendance">Attendance</a></li>
-            <li><a href="#mom">Minutes of Meeting</a></li>
-            <li><a href="#checklist">Check List</a></li>
-            <li><a href="#planning">Planning & Achievement</a></li>
-            <li><a href="#report">Report</a></li>
-            <li><a href="#books">Books</a></li>
-            <li><a href="#articles">Articles</a></li>
-            <li><a href="#self-assessment">Self Assessment</a></li>
-        </ul>
-    </nav>
-
-    <section id="attendance">
-        <h2>Attendance</h2>
-        <ul id="attendance-files">
-            <!-- Dynamically populated files -->
-        </ul>
-    </section>
-
-    <section id="mom">
-        <h2>Minutes of Meeting</h2>
-        <ul id="mom-files">
-            <!-- Dynamically populated files -->
-        </ul>
-    </section>
-
-    <section id="checklist">
-        <h2>Check List</h2>
-        <ul>
-            <li><a href="#weekly">Weekly</a></li>
-            <li><a href="#monthly">Monthly</a></li>
-            <li><a href="#quarterly">Quarterly</a></li>
-            <li><a href="#half-yearly">Half Yearly</a></li>
-        </ul>
-
-        <section id="weekly">
-            <h3>Weekly Check List</h3>
-            <ul id="weekly-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="monthly">
-            <h3>Monthly Check List</h3>
-            <ul id="monthly-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="quarterly">
-            <h3>Quarterly Check List</h3>
-            <ul id="quarterly-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="half-yearly">
-            <h3>Half Yearly Check List</h3>
-            <ul id="half-yearly-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-    </section>
-
-    <section id="planning">
-        <h2>Planning & Achievement</h2>
-        <ul id="planning-files">
-            <!-- Dynamically populated files -->
-        </ul>
-    </section>
-
-    <section id="report">
-        <h2>Report</h2>
-        <ul>
-            <li><a href="#sensus-report">Sensus Report</a></li>
-            <li><a href="#student-report">Student Report</a></li>
-            <li><a href="#class-report">Class Report</a></li>
-            <li><a href="#irregular-student-report">Irregular Student Report</a></li>
-        </ul>
-
-        <section id="sensus-report">
-            <h3>Sensus Report</h3>
-            <ul id="sensus-report-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="student-report">
-            <h3>Student Report</h3>
-            <ul id="student-report-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="class-report">
-            <h3>Class Report</h3>
-            <ul id="class-report-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="irregular-student-report">
-            <h3>Irregular Student Report</h3>
-            <ul id="irregular-student-report-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-    </section>
-
-    <section id="books">
-        <h2>Books</h2>
-        <ul>
-            <li><a href="#tawheed">Tawheed</a></li>
-            <li><a href="#adl">Adl</a></li>
-            <li><a href="#nabuwat">Nabuwat</a></li>
-            <li><a href="#imamat">Imamat</a></li>
-            <li><a href="#qayamat">Qayamat</a></li>
-            <li><a href="#mahdaviyat">Mahdaviyat</a></li>
-            <li><a href="#ahqaam">Ahqaam</a></li>
-            <li><a href="#general">General</a></li>
-        </ul>
-
-        <section id="tawheed">
-            <h3>Tawheed</h3>
-            <ul id="tawheed-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="adl">
-            <h3>Adl</h3>
-            <ul id="adl-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="nabuwat">
-            <h3>Nabuwat</h3>
-            <ul id="nabuwat-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="imamat">
-            <h3>Imamat</h3>
-            <ul id="imamat-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="qayamat">
-            <h3>Qayamat</h3>
-            <ul id="qayamat-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="mahdaviyat">
-            <h3>Mahdaviyat</h3>
-            <ul id="mahdaviyat-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="ahqaam">
-            <h3>Ahqaam</h3>
-            <ul id="ahqaam-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-
-        <section id="general">
-            <h3>General</h3>
-            <ul id="general-files">
-                <!-- Files go here -->
-            </ul>
-        </section>
-    </section>
-
-    <section id="articles">
-        <h2>Articles</h2>
-        <ul id="articles-files">
-            <!-- Dynamically populated files -->
-        </ul>
-    </section>
-
-    <section id="self-assessment">
-        <h2>Self Assessment</h2>
-        <ul id="self-assessment-files">
-            <!-- Dynamically populated files -->
-        </ul>
-    </section>
-
-    <script src="script.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>

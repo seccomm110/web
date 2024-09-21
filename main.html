@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahdi Classes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arabic+Typesetting&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon for the browser tab -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #f1f1f1;
+        }
+
+        .navbar {
+            background-color: #3a8e3a;
+            padding: 10px;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-right: 20px;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .tab-content {
+            padding: 20px;
+            display: none;
+        }
+
+        .upload-section {
+            margin: 20px;
+            padding: 10px;
+            background-color: #e7f5e7;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        /* .upload-button {
+            background-color: #3a8e3a;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        } */
+
+        .upload-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<script>
+    // Check if the user is authenticated
+    if (!localStorage.getItem('isLoggedIn')) {
+        window.location.href = 'index.html'; // Redirect to login page
+    }
+
+    // Log in the user and set the login status in localStorage
+    function login() {
+        localStorage.setItem('isLoggedIn', true);
+    }
+
+    // Call this function when the login is successful in index.html
+    // window.onload = login; // Uncomment this line if using a function in index.html
+
+    function showTab(tabId) {
+        const tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.style.display = 'none'; // Hide all tabs
+        });
+        document.getElementById(tabId).style.display = 'block'; // Show the selected tab
+    }
+</script>
+
+<body>
+    <header class="header">
+        <div class="left">
+            <p class="ya-sahibaz-zamaan">صلى الله عليك يا ولي العصر (عج) أدركنا</p>
+        </div>
+        <div class="right">
+            <p class="bismillah">بسم الله الرحمن الرحيم</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="#" onclick="showTab('attendance')">Attendance</a></li>
+            <li class="nav-item"><a href="#" onclick="showTab('minutesOfMeeting')">Minutes of Meeting</a></li>
+            <li class="nav-item">
+                <a href="#">Check List</a>
+                <ul class="dropdown">
+                    <li><a href="#" onclick="showTab('checkListWeekly')">Weekly</a></li>
+                    <li><a href="#" onclick="showTab('checkListMonthly')">Monthly</a></li>
+                    <li><a href="#" onclick="showTab('checkListQuarterly')">Quarterly</a></li>
+                    <li><a href="#" onclick="showTab('checkListHalfYearly')">Half Yearly</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#">Report</a>
+                <ul class="dropdown">
+                    <li><a href="#" onclick="showTab('reportSensus')">Sensus Report</a></li>
+                    <li><a href="#" onclick="showTab('reportStudent')">Student Report</a></li>
+                    <li><a href="#" onclick="showTab('reportClass')">Class Report</a></li>
+                    <li><a href="#" onclick="showTab('reportIrregular')">Irregular Student Report</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#">Books</a>
+                <ul class="dropdown">
+                    <li><a href="#" onclick="showTab('booksTawheed')">Tawheed</a></li>
+                    <li><a href="#" onclick="showTab('booksAdl')">Adl</a></li>
+                    <li><a href="#" onclick="showTab('booksNabuwat')">Nabuwat</a></li>
+                    <li><a href="#" onclick="showTab('booksImamat')">Imamat</a></li>
+                    <li><a href="#" onclick="showTab('booksQayamat')">Qayamat</a></li>
+                    <li><a href="#" onclick="showTab('booksMahdaviyat')">Mahdaviyat</a></li>
+                    <li><a href="#" onclick="showTab('booksAhqaam')">Ahqaam</a></li>
+                    <li><a href="#" onclick="showTab('booksGeneral')">General</a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a href="#" onclick="showTab('articles')">Articles</a></li>
+            <li class="nav-item"><a href="#" onclick="showTab('selfAssessment')">Self Assessment</a></li>
+        </ul>
+    </nav>
+    
+    <div id="content" class="tab-content-wrapper">
+        <div id="attendance" class="tab-content" style="display:none;">
+            <h2 class="tab-title">Attendance</h2>
+            <ul id="attendanceList" class="file-list"></ul>
+        </div>
+        <div id="minutesOfMeeting" class="tab-content" style="display:none;">
+            <h2 class="tab-title">Minutes of Meeting</h2>
+            <ul id="minutesOfMeetingList" class="file-list"></ul> 
+        </div>
+        <!-- Other tab content goes here... -->
+        <div id="selfAssessment" class="tab-content" style="display:none;">
+            <h2 class="tab-title">Self Assessment</h2>
+            <ul id="selfAssessmentList" class="file-list"></ul>
+        </div>
+    </div>
+
+    <div class="upload-section">
+        <label for="folderSelect" class="upload-label">Select Folder:</label>
+        <select id="folderSelect" class="folder-select">
+            <option value="Attendance">Attendance</option>
+            <option value="MinutesOfMeeting">Minutes of Meeting</option>
+            <option value="CheckList/Weekly">Check List - Weekly</option>
+            <option value="CheckList/Monthly">Check List - Monthly</option>
+            <option value="CheckList/Quarterly">Check List - Quarterly</option>
+            <option value="CheckList/HalfYearly">Check List - Half Yearly</option>
+            <option value="PlanningAndAchievement">Planning & Achievement</option>
+            <option value="Report/SensusReport">Report - Sensus Report</option>
+            <option value="Report/StudentReport">Report - Student Report</option>
+            <option value="Report/ClassReport">Report - Class Report</option>
+            <option value="Report/IrregularStudentReport">Report - Irregular Student Report</option>
+            <option value="Books/Tawheed">Books - Tawheed</option>
+            <option value="Books/Adl">Books - Adl</option>
+            <option value="Books/Nabuwat">Books - Nabuwat</option>
+            <option value="Books/Imamat">Books - Imamat</option>
+            <option value="Books/Qayamat">Books - Qayamat</option>
+            <option value="Books/Mahdaviyat">Books - Mahdaviyat</option>
+            <option value="Books/Ahqaam">Books - Ahqaam</option>
+            <option value="Books/General">Books - General</option>
+            <option value="Articles">Articles</option>
+            <option value="SelfAssessment">Self Assessment</option>
+        </select>
+        <input type="file" id="fileInput" multiple class="file-input" />
+        <button id="uploadButton" class="upload-button">
+            📤 Upload
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
