@@ -37,5 +37,27 @@
             <div id="errorMessage" class="error-message" style="display:none;">Invalid username or password!</div>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent form submission
+
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if (username === 'seccomm110' && password === 'Sec.Comm110') {
+                    localStorage.setItem('isLoggedIn', true); // Set login status
+                    setTimeout(function() {
+                        // Redirect to main.html after a short delay
+                        window.location.href = 'main.html';
+                    }, 100); // 100 ms delay
+                } else {
+                    // Show error message if credentials are incorrect
+                    const errorMessage = document.getElementById('errorMessage');
+                    errorMessage.style.display = 'block';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
