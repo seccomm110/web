@@ -1,4 +1,4 @@
-const token = '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'; // Replace with your actual GitHub token
+const token = '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'; // Replace with your actual GitHub token
 const repoOwner = 'seccomm110'; // Your GitHub username
 const repoName = 'web'; // Your repository name
 
@@ -144,4 +144,3 @@ document.getElementById('uploadButton').addEventListener('click', () => {
         uploadFile(files[i], selectedFolder);
     }
 });
-    
