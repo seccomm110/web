@@ -1,0 +1,23 @@
+GitHub.com
+Email: sec.comm110@gmail.com
+Username: seccomm110
+Password: Sec.Comm110
+
+
+
+In Dashboard:
+Secondary Commitee | Date
+
+the following tab u need to create:
+Attendance
+Minutes of Meeting
+Check List > Weekly, Monthly, Quarterly, Half Yearly
+Planning & Achievement
+Report -> Sensus Report, Student Report, Class Report, Irregular Student Report
+Books -> Tawheed, Adl, Nabuwat , Imamat, Qayamat, Mahdaviyat, Ahqaam, General
+Articles
+Self Assessment
+
+for dir in Attendance MinutesOfMeeting "CheckList/Weekly" "CheckList/Monthly" "CheckList/Quarterly" "CheckList/HalfYearly" PlanningAndAchievement "Report/SensusReport" "Report/StudentReport" "Report/ClassReport" "Report/IrregularStudentReport" "Books/Tawheed" "Books/Adl" "Books/Nabuwat" "Books/Imamat" "Books/Qayamat" "Books/Mahdaviyat" "Books/Ahqaam" "Books/General" Articles SelfAssessment; do
+    cp ABC.xlsx "$dir/"
+done
