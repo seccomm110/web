@@ -44,7 +44,7 @@ async function fetchFiles(directory) {
         
         return await response.json();
     } catch (error) {
-        console.error(error);
+        console.error(`Failed to fetch files from ${directory}:`, error);
         return []; // Return an empty array on error
     }
 }
@@ -86,28 +86,19 @@ async function populateFiles(tabId) {
             li.style.cursor = 'pointer'; // Make it clear that it's clickable
             
             // Create a sublist element
-            const subListId = `${directory.replace(/\//g, '_')}_${file.name}_subList`;
             const subList = document.createElement('ul');
-            subList.id = subListId; // Set an ID for the sublist
+            li.appendChild(subList);
 
             li.onclick = async () => {
-                // Toggle the sublist visibility
-                if (subList.parentNode) {
-                    li.removeChild(subList);
-                } else {
-                    const subFiles = await fetchFiles(`${directory}/${file.name}`);
-                    if (subFiles.length > 0) {
-                        subList.innerHTML = ''; // Clear previous sublist items
-                        subFiles.forEach(subFile => {
-                            const subLi = document.createElement('li');
-                            if (subFile.type === 'file') {
-                                subLi.innerHTML = `<a href="${subFile.download_url}" target="_blank">${subFile.name}</a>`;
-                            }
-                            subList.appendChild(subLi);
-                        });
-                        li.appendChild(subList); // Append the sublist to the directory item
+                const subFiles = await fetchFiles(`${directory}/${file.name}`);
+                subList.innerHTML = ''; // Clear previous sublist items
+                subFiles.forEach(subFile => {
+                    const subLi = document.createElement('li');
+                    if (subFile.type === 'file') {
+                        subLi.innerHTML = `<a href="${subFile.download_url}" target="_blank">${subFile.name}</a>`;
                     }
-                }
+                    subList.appendChild(subLi);
+                });
             };
         }
         listElement.appendChild(li);
@@ -153,3 +144,4 @@ document.getElementById('uploadButton').addEventListener('click', () => {
         uploadFile(files[i], selectedFolder);
     }
 });
+    
