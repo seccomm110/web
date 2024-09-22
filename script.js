@@ -36,6 +36,7 @@ const fileStructure = {
     booksGeneral: 'Books/General'
 };
 
+// Function to fetch files from a GitHub repository
 async function fetchFiles(directory) {
     try {
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${directory}`, {
@@ -56,6 +57,7 @@ async function fetchFiles(directory) {
     }
 }
 
+// Function to show the selected tab and populate files
 async function showTab(tabId) {
     const tabs = document.querySelectorAll('.tab-content');
     tabs.forEach(tab => {
@@ -66,6 +68,7 @@ async function showTab(tabId) {
     await populateFiles(tabId);
 }
 
+// Function to populate files in the selected tab
 async function populateFiles(tabId) {
     const directory = fileStructure[tabId];
     const listId = `${tabId}List`;
@@ -86,14 +89,41 @@ async function populateFiles(tabId) {
 
     files.forEach(file => {
         const li = document.createElement('li');
+        
         if (file.type === 'file') {
-            li.innerHTML = `
-                <span>${file.name}</span>
-                <button class="delete-button" onclick="deleteFile('${directory}', '${file.name}')">−</button>
-            `;
+            // Check if the file is a PDF
+            const isPDF = file.name.toLowerCase().endsWith('.pdf');
+            let fileLink;
+
+            if (isPDF) {
+                // For PDFs, use a Google Docs viewer or a direct GitHub URL to view in-browser
+                fileLink = document.createElement('a');
+                fileLink.href = `https://docs.google.com/viewer?url=${encodeURIComponent(file.download_url)}&embedded=true`;
+                fileLink.textContent = file.name;
+                fileLink.target = '_blank'; // Open in new tab
+                fileLink.style.textDecoration = 'none'; // Optional: remove underline
+            } else {
+                // For non-PDF files, use the direct download link
+                fileLink = document.createElement('a');
+                fileLink.href = file.download_url; // GitHub file URL
+                fileLink.textContent = file.name;
+                fileLink.target = '_blank'; // Open in new tab
+                fileLink.style.textDecoration = 'none'; // Optional: remove underline
+            }
+
+            li.appendChild(fileLink);
+
+            // Add delete button next to the file link
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = '−';
+            deleteButton.className = 'delete-button';
+            deleteButton.onclick = () => deleteFile(directory, file.name);
+
             li.style.display = 'flex'; // Set display to flex
             li.style.justifyContent = 'space-between'; // Space out items
             li.style.alignItems = 'center'; // Center items vertically
+
+            li.appendChild(deleteButton);
         } else if (file.type === 'dir') {
             li.innerHTML = `<strong>${file.name}</strong>`;
             li.style.cursor = 'pointer'; // Make it clear that it's clickable
@@ -108,13 +138,33 @@ async function populateFiles(tabId) {
                 subFiles.forEach(subFile => {
                     const subLi = document.createElement('li');
                     if (subFile.type === 'file') {
-                        subLi.innerHTML = `
-                            <span>${subFile.name}</span>
-                            <button class="delete-button" onclick="deleteFile('${directory}/${file.name}', '${subFile.name}')">Delete</button>
-                        `;
+                        // Create a link for the subfile
+                        const subFileLink = document.createElement('a');
+                        
+                        const isPDF = subFile.name.toLowerCase().endsWith('.pdf');
+                        if (isPDF) {
+                            subFileLink.href = `https://docs.google.com/viewer?url=${encodeURIComponent(subFile.download_url)}&embedded=true`;
+                        } else {
+                            subFileLink.href = subFile.download_url;
+                        }
+
+                        subFileLink.textContent = subFile.name;
+                        subFileLink.target = '_blank'; // Open in new tab
+                        subFileLink.style.textDecoration = 'none'; // Optional: remove underline
+
+                        subLi.appendChild(subFileLink);
+
+                        // Add delete button next to the subfile link
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.className = 'delete-button';
+                        deleteButton.onclick = () => deleteFile(`${directory}/${file.name}`, subFile.name);
+
                         subLi.style.display = 'flex'; // Set display to flex
                         subLi.style.justifyContent = 'space-between'; // Space out items
                         subLi.style.alignItems = 'center'; // Center items vertically
+
+                        subLi.appendChild(deleteButton);
                     }
                     subList.appendChild(subLi);
                 });
@@ -124,6 +174,8 @@ async function populateFiles(tabId) {
     });
 }
 
+
+// Function to upload a file to a specified directory in the GitHub repository
 async function uploadFile(file, directory) {
     const path = `${directory}/${encodeURIComponent(file.name)}`; // Specify the path in your repo
 
@@ -157,6 +209,7 @@ async function uploadFile(file, directory) {
     reader.readAsBinaryString(file); // Read the file as a binary string
 }
 
+// Function to delete a file from a specified directory in the GitHub repository
 async function deleteFile(directory, fileName) {
     const path = `${directory}/${encodeURIComponent(fileName)}`;
     
