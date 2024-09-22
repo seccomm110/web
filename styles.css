@@ -7,7 +7,7 @@ body {
 }
 
 /* Header Styles */
-.header {
+#header {
     display: flex;
     justify-content: space-between; /* Space between left and right content */
     align-items: center; /* Center vertically */
@@ -18,11 +18,11 @@ body {
     color: #ffffff; /* White text color */
 }
 
-.left {
+.header-left {
     text-align: left; /* Align text to the left */
 }
 
-.right {
+.header-right {
     text-align: right; /* Align text to the right */
 }
 
@@ -33,7 +33,7 @@ body {
 }
 
 /* Navbar Styles */
-.navbar {
+#navbar {
     background-color: #2e6f2e; /* Darker green */
     padding: 10px;
 }
@@ -167,7 +167,7 @@ body {
 }
 
 /* Login Page Styles */
-.login-container {
+#login-container {
     max-width: 400px; /* Set a maximum width */
     margin: 100px auto; /* Center the container */
     padding: 20px; /* Add padding */
@@ -175,25 +175,25 @@ body {
     text-align: center; /* Center text */
 }
 
-.login-container h2 {
+#login-container h2 {
     margin-bottom: 20px; /* Space below heading */
     color: #3a8e3a; /* Match header color */
 }
 
-.login-container label {
+#login-container label {
     display: block; /* Block display for labels */
     margin-bottom: 5px; /* Space below labels */
     font-weight: bold; /* Bold text */
 }
 
-.login-container input[type="text"],
-.login-container input[type="password"] {
+#login-container input[type="text"],
+#login-container input[type="password"] {
     width: 100%; /* Full width */
     padding: 10px; /* Padding inside inputs */
     margin-bottom: 15px; /* Space below inputs */
 }
 
-.login-container button {
+#login-container button {
     background-color: #3a8e3a; /* Button color */
     color: white; /* Button text color */
     border: none; /* No border */
@@ -203,7 +203,7 @@ body {
     transition: background-color 0.3s; /* Transition for hover effect */
 }
 
-.login-container button:hover {
+#login-container button:hover {
     background-color: #2e6f2e; /* Darker green on hover */
 }
 
@@ -219,10 +219,6 @@ body {
     width: 100%; /* Full width */
     font-size: 0.8em; /* Smaller font */
 }
-
-
-
-
 
 /* Modal Styles */
 .modal {
@@ -291,6 +287,7 @@ body {
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
     margin-top: 10px; /* Space above the button */
+    z-index: 20;
 }
 
 .upload-button:hover {
@@ -304,5 +301,27 @@ body {
 
 .upload-icon {
     margin-right: 8px; /* Space between icon and text */
-    font-size: 1.2em; /* Increase icon size */
 }
+li {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+}
+
+.delete-button {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 8px 12px; /* Padding around text */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    margin-left: 16px; /* Space between file name and button */
+    cursor: pointer; /* Change cursor to pointer */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.delete-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+

@@ -40,7 +40,7 @@ async function fetchFiles(directory) {
     try {
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${directory}`, {
             headers: {
-                'Authorization': `${token}`,
+                'Authorization': `token ${token}`,
                 'Accept': 'application/vnd.github.v3+json'
             }
         });
@@ -55,7 +55,6 @@ async function fetchFiles(directory) {
         return []; // Return an empty array on error
     }
 }
-
 
 async function showTab(tabId) {
     const tabs = document.querySelectorAll('.tab-content');
@@ -88,7 +87,13 @@ async function populateFiles(tabId) {
     files.forEach(file => {
         const li = document.createElement('li');
         if (file.type === 'file') {
-            li.innerHTML = `<a href="${file.download_url}" target="_blank">${file.name}</a>`;
+            li.innerHTML = `
+                <span>${file.name}</span>
+                <button class="delete-button" onclick="deleteFile('${directory}', '${file.name}')">−</button>
+            `;
+            li.style.display = 'flex'; // Set display to flex
+            li.style.justifyContent = 'space-between'; // Space out items
+            li.style.alignItems = 'center'; // Center items vertically
         } else if (file.type === 'dir') {
             li.innerHTML = `<strong>${file.name}</strong>`;
             li.style.cursor = 'pointer'; // Make it clear that it's clickable
@@ -103,7 +108,13 @@ async function populateFiles(tabId) {
                 subFiles.forEach(subFile => {
                     const subLi = document.createElement('li');
                     if (subFile.type === 'file') {
-                        subLi.innerHTML = `<a href="${subFile.download_url}" target="_blank">${subFile.name}</a>`;
+                        subLi.innerHTML = `
+                            <span>${subFile.name}</span>
+                            <button class="delete-button" onclick="deleteFile('${directory}/${file.name}', '${subFile.name}')">Delete</button>
+                        `;
+                        subLi.style.display = 'flex'; // Set display to flex
+                        subLi.style.justifyContent = 'space-between'; // Space out items
+                        subLi.style.alignItems = 'center'; // Center items vertically
                     }
                     subList.appendChild(subLi);
                 });
@@ -114,7 +125,7 @@ async function populateFiles(tabId) {
 }
 
 async function uploadFile(file, directory) {
-    const path = `${directory}/${file.name}`; // Specify the path in your repo
+    const path = `${directory}/${encodeURIComponent(file.name)}`; // Specify the path in your repo
 
     const reader = new FileReader();
     reader.onload = async (event) => {
@@ -123,8 +134,7 @@ async function uploadFile(file, directory) {
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`, {
             method: 'PUT',
             headers: {
-                // 'Authorization': `token ${token}`,
-                'Authorization': `${token}`,
+                'Authorization': `token ${token}`,
                 'Accept': 'application/vnd.github.v3+json',
                 'Content-Type': 'application/json'
             },
@@ -135,6 +145,8 @@ async function uploadFile(file, directory) {
         });
 
         if (!response.ok) {
+            const errorBody = await response.json(); // Get error details
+            console.error(`Error uploading file: ${response.statusText}`, errorBody);
             throw new Error(`Error uploading file: ${response.statusText}`);
         }
 
@@ -145,6 +157,49 @@ async function uploadFile(file, directory) {
     reader.readAsBinaryString(file); // Read the file as a binary string
 }
 
+async function deleteFile(directory, fileName) {
+    const path = `${directory}/${encodeURIComponent(fileName)}`;
+    
+    // First, fetch the file to get its SHA
+    const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`, {
+        headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+        }
+    });
+
+    if (!response.ok) {
+        console.error(`Error fetching file for deletion: ${response.statusText}`);
+        return;
+    }
+
+    const fileData = await response.json();
+    const sha = fileData.sha; // Get the SHA of the file
+
+    // Now, send a DELETE request
+    const deleteResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            message: `Deleting ${fileName}`,
+            sha: sha // Provide the SHA to confirm deletion
+        })
+    });
+
+    if (!deleteResponse.ok) {
+        console.error(`Error deleting file: ${deleteResponse.statusText}`);
+        return;
+    }
+
+    console.log(`File ${fileName} deleted successfully.`);
+    // Refresh the file list to reflect changes
+    await populateFiles(directory);
+}
+
 // Event listener for upload button
 document.getElementById('uploadButton').addEventListener('click', () => {
     const files = document.getElementById('fileInput').files;
@@ -153,7 +208,6 @@ document.getElementById('uploadButton').addEventListener('click', () => {
         uploadFile(files[i], selectedFolder);
     }
 });
-
 
 // Get modal element
 const uploadModal = document.getElementById("uploadModal");
@@ -168,44 +222,4 @@ uploadIcon.onclick = function() {
 // Close the modal when the x is clicked
 closeModal.onclick = function() {
     uploadModal.style.display = "none";
-}
-
-// Close the modal when clicking anywhere outside of the modal
-window.onclick = function(event) {
-    if (event.target === uploadModal) {
-        uploadModal.style.display = "none";
-    }
-}
-
-document.getElementById('openIslamicCalendarButton').onclick = function() {
-    document.getElementById('islamicCalendarModal').style.display = "block";
-    // Initialize the calendar if not already initialized
-    if (!document.getElementById('calendar').innerHTML) {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            },
-            events: [
-                // Example events
-                { title: 'Example Event', start: '2024-09-25' }
-            ]
-        });
-        calendar.render();
-    }
-}
-
-// Close the modal when the user clicks on the close button
-document.getElementsByClassName('islamic-close')[0].onclick = function() {
-    document.getElementById('islamicCalendarModal').style.display = "none";
-}
-
-// Close the modal when the user clicks outside of it
-window.onclick = function(event) {
-    if (event.target === document.getElementById('islamicCalendarModal')) {
-        document.getElementById('islamicCalendarModal').style.display = "none";
-    }
 }
