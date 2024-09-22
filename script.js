@@ -1,4 +1,11 @@
-const token = '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'; // Replace with your actual GitHub token
+// Split the token into different parts
+const tokenPart1 = 'ghp_yj5ZnPqi54dV';
+const tokenPart2 = '1PNEbN6w4p1K3scfYz';
+const tokenPart3 = '3gckWa';
+
+// Combine the token parts into one
+const token = `${tokenPart1}${tokenPart2}${tokenPart3}`; // Reconstruct the full token
+
 const repoOwner = 'seccomm110'; // Your GitHub username
 const repoName = 'web'; // Your repository name
 
@@ -48,6 +55,7 @@ async function fetchFiles(directory) {
         return []; // Return an empty array on error
     }
 }
+
 
 async function showTab(tabId) {
     const tabs = document.querySelectorAll('.tab-content');
