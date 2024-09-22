@@ -40,7 +40,6 @@ async function fetchFiles(directory) {
     try {
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${directory}`, {
             headers: {
-                // 'Authorization': `token ${token}`,
                 'Authorization': `${token}`,
                 'Accept': 'application/vnd.github.v3+json'
             }
@@ -154,3 +153,59 @@ document.getElementById('uploadButton').addEventListener('click', () => {
         uploadFile(files[i], selectedFolder);
     }
 });
+
+
+// Get modal element
+const uploadModal = document.getElementById("uploadModal");
+const uploadIcon = document.getElementById("uploadIcon");
+const closeModal = document.getElementById("closeModal");
+
+// Show the modal when the icon is clicked
+uploadIcon.onclick = function() {
+    uploadModal.style.display = "block";
+}
+
+// Close the modal when the x is clicked
+closeModal.onclick = function() {
+    uploadModal.style.display = "none";
+}
+
+// Close the modal when clicking anywhere outside of the modal
+window.onclick = function(event) {
+    if (event.target === uploadModal) {
+        uploadModal.style.display = "none";
+    }
+}
+
+document.getElementById('openIslamicCalendarButton').onclick = function() {
+    document.getElementById('islamicCalendarModal').style.display = "block";
+    // Initialize the calendar if not already initialized
+    if (!document.getElementById('calendar').innerHTML) {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [
+                // Example events
+                { title: 'Example Event', start: '2024-09-25' }
+            ]
+        });
+        calendar.render();
+    }
+}
+
+// Close the modal when the user clicks on the close button
+document.getElementsByClassName('islamic-close')[0].onclick = function() {
+    document.getElementById('islamicCalendarModal').style.display = "none";
+}
+
+// Close the modal when the user clicks outside of it
+window.onclick = function(event) {
+    if (event.target === document.getElementById('islamicCalendarModal')) {
+        document.getElementById('islamicCalendarModal').style.display = "none";
+    }
+}

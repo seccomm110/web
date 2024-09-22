@@ -6,6 +6,9 @@
     <title>Mahdi Classes</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Arabic+Typesetting&display=swap" rel="stylesheet">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/main.min.js'></script>
+
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon for the browser tab -->
     <style>
         body {
@@ -144,9 +147,55 @@
             </li>
             <li class="nav-item"><a href="#" onclick="showTab('articles')">Articles</a></li>
             <li class="nav-item"><a href="#" onclick="showTab('selfAssessment')">Self Assessment</a></li>
+
+
+
         </ul>
     </nav>
+
+
+
+    <!-- Upload Icon -->
+    <div class="upload-button bottom-right" id="uploadIcon" style="cursor: pointer;">
+        <span class="upload-icon">📤</span>
+    </div>
     
+    <!-- Modal Structure -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <div class="upload-section">
+                <label for="folderSelect" class="upload-label">Select Folder:</label>
+                <select id="folderSelect" class="folder-select">
+                    <option value="Attendance">Attendance</option>
+                    <option value="MinutesOfMeeting">Minutes of Meeting</option>
+                    <option value="CheckList/Weekly">Check List - Weekly</option>
+                    <option value="CheckList/Monthly">Check List - Monthly</option>
+                    <option value="CheckList/Quarterly">Check List - Quarterly</option>
+                    <option value="CheckList/HalfYearly">Check List - Half Yearly</option>
+                    <option value="PlanningAndAchievement">Planning & Achievement</option>
+                    <option value="Report/SensusReport">Report - Sensus Report</option>
+                    <option value="Report/StudentReport">Report - Student Report</option>
+                    <option value="Report/ClassReport">Report - Class Report</option>
+                    <option value="Report/IrregularStudentReport">Report - Irregular Student Report</option>
+                    <option value="Books/Tawheed">Books - Tawheed</option>
+                    <option value="Books/Adl">Books - Adl</option>
+                    <option value="Books/Nabuwat">Books - Nabuwat</option>
+                    <option value="Books/Imamat">Books - Imamat</option>
+                    <option value="Books/Qayamat">Books - Qayamat</option>
+                    <option value="Books/Mahdaviyat">Books - Mahdaviyat</option>
+                    <option value="Books/Ahqaam">Books - Ahqaam</option>
+                    <option value="Books/General">Books - General</option>
+                    <option value="Articles">Articles</option>
+                    <option value="SelfAssessment">Self Assessment</option>
+                </select>
+                <input type="file" id="fileInput" multiple class="file-input" />
+                <button id="uploadButton" class="upload-button">📤 Upload</button>
+            </div>
+        </div>
+    </div>
+   
+
 <!-- Sub-tabs for CheckList -->
 <div class="sub-tab-nav" id="checkListSubTabs" style="display: none;">
     <button class="tab-button" onclick="showTab('checkListWeekly')">Weekly</button>
@@ -280,36 +329,8 @@
     </div>
 </div>
 
-    <div class="upload-section">
-        <label for="folderSelect" class="upload-label">Select Folder:</label>
-        <select id="folderSelect" class="folder-select">
-            <option value="Attendance">Attendance</option>
-            <option value="MinutesOfMeeting">Minutes of Meeting</option>
-            <option value="CheckList/Weekly">Check List - Weekly</option>
-            <option value="CheckList/Monthly">Check List - Monthly</option>
-            <option value="CheckList/Quarterly">Check List - Quarterly</option>
-            <option value="CheckList/HalfYearly">Check List - Half Yearly</option>
-            <option value="PlanningAndAchievement">Planning & Achievement</option>
-            <option value="Report/SensusReport">Report - Sensus Report</option>
-            <option value="Report/StudentReport">Report - Student Report</option>
-            <option value="Report/ClassReport">Report - Class Report</option>
-            <option value="Report/IrregularStudentReport">Report - Irregular Student Report</option>
-            <option value="Books/Tawheed">Books - Tawheed</option>
-            <option value="Books/Adl">Books - Adl</option>
-            <option value="Books/Nabuwat">Books - Nabuwat</option>
-            <option value="Books/Imamat">Books - Imamat</option>
-            <option value="Books/Qayamat">Books - Qayamat</option>
-            <option value="Books/Mahdaviyat">Books - Mahdaviyat</option>
-            <option value="Books/Ahqaam">Books - Ahqaam</option>
-            <option value="Books/General">Books - General</option>
-            <option value="Articles">Articles</option>
-            <option value="SelfAssessment">Self Assessment</option>
-        </select>
-        <input type="file" id="fileInput" multiple class="file-input" />
-        <button id="uploadButton" class="upload-button">
-            📤 Upload
-        </button>
-    </div>
+
+
 
     <script src="script.js"></script>
 </body>

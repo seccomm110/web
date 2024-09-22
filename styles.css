@@ -212,20 +212,6 @@ body {
     margin-top: 15px; /* Space above error message */
 }
 
-.upload-section {
-    margin: 10px;
-    padding: 10px;
-    background-color: #e7f5e7; /* Light green */
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 200px; /* Smaller width */
-}
-
-.upload-label {
-    font-weight: bold;
-    font-size: 0.8em; /* Smaller font */
-}
-
 .folder-select,
 .file-input {
     margin: 5px 0; /* Reduced margin */
@@ -234,18 +220,89 @@ body {
     font-size: 0.8em; /* Smaller font */
 }
 
+
+
+
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative; /* Positioning for child elements */
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Upload Icon */
+.upload-button.bottom-right {
+    position: absolute; /* Position it relative to the modal */
+    bottom: 10px; /* Distance from the bottom */
+    right: 10px; /* Distance from the right */
+}
+
+/* Upload Section */
+.upload-section {
+    width: 80%; /* Ensure full width for the upload section */
+    margin-top: 40px; /* Space for the upload icon */
+    background: white;
+}
+
+/* Upload Button */
 .upload-button {
-    background-color: transparent; /* No background */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer on hover */
-    position: relative; /* Position for the icon */
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 10px 20px; /* Some padding */
+    text-align: center; /* Centered text */
+    text-decoration: none; /* No underline */
+    display: inline-flex; /* Flex for icon and text */
+    align-items: center; /* Center vertically */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+    margin-top: 10px; /* Space above the button */
+}
+
+.upload-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge */
+}
+
+.upload-button:active {
+    transform: scale(0.95); /* Shrink on click */
 }
 
 .upload-icon {
-    width: 24px; /* Adjust icon size */
-    height: 24px; /* Adjust icon size */
-}
-
-.upload-button:hover .upload-icon {
-    opacity: 0.8; /* Slightly fade on hover */
+    margin-right: 8px; /* Space between icon and text */
+    font-size: 1.2em; /* Increase icon size */
 }
