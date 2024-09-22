@@ -40,7 +40,8 @@ async function fetchFiles(directory) {
     try {
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${directory}`, {
             headers: {
-                'Authorization': `token ${token}`,
+                // 'Authorization': `token ${token}`,
+                'Authorization': `${token}`,
                 'Accept': 'application/vnd.github.v3+json'
             }
         });
@@ -123,7 +124,8 @@ async function uploadFile(file, directory) {
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`, {
             method: 'PUT',
             headers: {
-                'Authorization': `token ${token}`,
+                // 'Authorization': `token ${token}`,
+                'Authorization': `${token}`,
                 'Accept': 'application/vnd.github.v3+json',
                 'Content-Type': 'application/json'
             },
